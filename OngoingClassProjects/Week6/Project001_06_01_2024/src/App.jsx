@@ -1,45 +1,33 @@
 // eslint-disable-next-line no-unused-vars
-import React, { Fragment } from "react";
-import { useState } from "react"
+import React, { useState, useEffect } from "react";
+useState
 
 function App() {
-  let counter = 4;
-  const [todos, setTodos] = useState([{
-    id: 1,
-    title: "Go to gym",
-    description: "Go to gym today"
-  },
-  {
-    id: 2,
-    title: "Go to gym",
-    description: "Go to gym today"
-  },
-  {
-    id: 3,
-    title: "Go to gym",
-    description: "Go to gym today"
-  }]);
-  function addTodo() {
-    setTodos([...todos, {
-      id: counter++,
-      title: Math.random(),
-      description: Math.random()
-    }])
-  }
+  const [todos, setTodos] = useState([]);
+  //write a fetch call to call todos from the backend
+
+  useEffect(() => {
+
+    setInterval(() => {
+      fetch('https://sum-server.100xdevs.com/todos')
+        .then(async function (res) {
+          const json = await res.json();
+          setTodos(json.todos)
+        })
+    }, 5000);
+  }, [])
+
   return (
     <div>
-      <button onClick={addTodo}>Add todo</button>
       {todos.map(todo => <Todo key={todo.id} title={todo.title} description={todo.description} />)}
     </div>
   )
 }
-
 // eslint-disable-next-line react/prop-types
 function Todo({ title, description }) {
   return <div>
     <h1>{title}</h1>
-    <p>{description}</p>
+    <h4>{description}</h4>
   </div>
 }
-
 export default App;
