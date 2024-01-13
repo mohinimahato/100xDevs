@@ -7,7 +7,6 @@ function App() {
   //write a fetch call to call todos from the backend
 
   useEffect(() => {
-
     setInterval(() => {
       fetch('https://sum-server.100xdevs.com/todos')
         .then(async function (res) {
