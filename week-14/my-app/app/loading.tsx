@@ -1,5 +1,5 @@
 export default function(){
-    return <div>
+    return <div className="text-center ">
         Loading...
     </div>
 }
